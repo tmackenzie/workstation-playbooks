@@ -1,0 +1,21 @@
+---
+    - local_action: stat path=$HOME/.ssh/id_rsa
+      register: key_exists
+
+    - name: generate SSH key.
+      shell: ssh-keygen -b 4096 -t rsa -f $HOME/.ssh/id_rsa -q -N "" -C {{ email }} -P {{ passphrase }}
+      args:
+        creates: $HOME/.ssh/id_rsa
+      when: key_exists.stat.exists == False
+
+    - name: copy ssh config file
+      template: src=../templates/config dest=$HOME/.ssh/config mode=0644
+      when: key_exists.stat.exists == False
+
+    - name: add key to ssh agent
+      shell: |
+        eval "$(ssh-agent)"
+        ssh-add -K $HOME/.ssh/id_rsa
+      when: key_exists.stat.exists == False
+
+

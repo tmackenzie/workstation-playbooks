@@ -1,0 +1,25 @@
+---
+    - local_action: stat path={{ vault_install_dest }}
+      register: vault_exists
+
+    - name: make directory for vault
+      file:
+        path: "{{ vault_install_dest }}"
+        state: directory
+      become: yes
+      when: vault_exists.stat.exists == False
+
+    - name: install vault
+      unarchive:
+        src: https://releases.hashicorp.com/vault/{{ vault_version }}/vault_{{ vault_version }}_darwin_amd64.zip
+        dest: "{{ vault_install_dest }}"
+        remote_src: yes
+      when: vault_exists.stat.exists == False
+
+    - name: vault env vars in bash profile
+      lineinfile:
+        path: ~/.bash_profile
+        line: '{{ item }}' 
+      with_items:
+        - export PATH={{ vault_install_dest }}:$PATH 
+      when: vault_exists.stat.exists == False

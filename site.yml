@@ -1,0 +1,29 @@
+ - name: dotfiles 
+   import_playbook: dotfiles.yml
+   tags: 
+    - dotfiles
+
+ - name: maven 
+   import_playbook: maven.yml
+   tags:
+    - mvn
+
+ - name: gradle
+   import_playbook: gradle.yml
+   tags:
+    - gradle
+
+ - name: vault
+   import_playbook: vault.yml
+   tags:
+    - vault
+
+ - name: keys
+   import_playbook: keys.yml
+   tags:
+    - keys
+
+ - name: intellij-ultimate
+   import_playbook: intellij-ultimate.yml
+   tags:
+    - intellij-ultimate

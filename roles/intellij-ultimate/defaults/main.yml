@@ -1,0 +1,4 @@
+intellij_ultimate_version: "2018.3.5"
+appName: "Intellij IDEA"
+appNameEscaped: "Intellij\\ IDEA"
+dmgURL: https://download.jetbrains.com/idea/ideaIU-{{ intellij_ultimate_version }}.dmg

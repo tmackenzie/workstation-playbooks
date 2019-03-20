@@ -1,0 +1,3 @@
+appName: "Docker"
+appNameEscaped: "Docker"
+dmgURL: https://download.docker.com/mac/stable/Docker.dmg

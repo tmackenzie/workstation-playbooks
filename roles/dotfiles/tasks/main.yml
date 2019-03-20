@@ -1,0 +1,14 @@
+---
+    - local_action: stat path=~/.bash_profile
+      register: profile_exists
+
+    - name: copy bash profile
+      template: src=../templates/bash_profile dest=~/.bash_profile mode=0644
+      when: profile_exists.stat.exists == False
+
+    - local_action: stat path=~/.vimrc
+      register: vimrc_exists
+
+    - name: copy vimrc
+      template: src=../templates/vimrc dest=~/.vimrc mode=0644
+      when: vimrc_exists.stat.exists == False

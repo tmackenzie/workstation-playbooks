@@ -1,0 +1,3 @@
+mvn_version: "3.6.0"
+mvn_base_install_dest: "/opt/apache-maven"
+mvn_install_dest: "{{ mvn_base_install_dest}}/apache-maven-{{ mvn_version }}"

@@ -1,0 +1,3 @@
+---
+ - name: intellij ultimate include dmg install
+   include: ../dmg/tasks/main.yml

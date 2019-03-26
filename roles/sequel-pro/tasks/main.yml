@@ -1,0 +1,3 @@
+---
+ - name: sequel pro include dmg install
+   include: ../dmg/tasks/main.yml

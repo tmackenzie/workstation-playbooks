@@ -28,17 +28,24 @@
    tags:
     - minikube
 
+ - name: terraform
+   import_playbook: terraform.yml
+   tags:
+    - terraform
+
  - name: keys
    import_playbook: keys.yml
    tags:
     - keys
 
- - name: virual box
-   import_playbook: virtual-box.yml
-   tags:
-    - virtual-box
-
  - name: intellij-ultimate
    import_playbook: intellij-ultimate.yml
    tags:
     - intellij-ultimate
+
+ - name: sequel pro
+   import_playbook: sequel-pro.yml
+   tags:
+    - sequel-pro
+
+

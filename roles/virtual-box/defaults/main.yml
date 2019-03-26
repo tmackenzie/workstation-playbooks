@@ -1,0 +1,4 @@
+vbox_version: "6.0.4-128413"
+appName: "virtualBox"
+appNameEscaped: "virtualBox"
+dmgURL: https://download.virtualbox.org/virtualbox/6.0.4/VirtualBox-{{ vbox_version }}-OSX.dmg

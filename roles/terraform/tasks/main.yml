@@ -1,0 +1,27 @@
+---
+    - local_action: stat path={{ terraform_install_dest }}
+      register: terraform_exists
+
+    - name: make directory for terraform
+      file:
+        path: "{{ terraform_install_dest }}"
+        state: directory
+      become: yes
+      when: terraform_exists.stat.exists == False
+
+    - name: download terraform
+      unarchive:
+        src: "https://releases.hashicorp.com/terraform/{{ terraform_version}}/terraform_{{ terraform_version }}_darwin_amd64.zip"
+        dest: "{{ terraform_install_dest }}"
+        remote_src: yes
+      become: yes
+      when: terraform_exists.stat.exists == False
+
+    - name: symlink
+      file:
+        src: "{{ terraform_install_dest }}/terraform"
+        dest: "{{ terraform_link_dest }}"
+        state: link
+        mode: +x
+      become: yes
+      when: terraform_exists.stat.exists == False

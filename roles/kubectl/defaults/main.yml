@@ -1,0 +1,3 @@
+kubectl_version: "1.14.0"
+kubectl_install_dest: "/usr/local/kubectl-{{ kubectl_version }}"
+kubectl_link_dest: "/usr/local/bin/kubectl"

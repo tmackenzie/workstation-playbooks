@@ -18,6 +18,21 @@
    tags:
     - vault
 
+ - name: kubectl
+   import_playbook: kubectl.yml
+   tags:
+    - kubectl
+
+ - name: minikube
+   import_playbook: minikube.yml
+   tags:
+    - minikube
+
+ - name: terraform
+   import_playbook: terraform.yml
+   tags:
+    - terraform
+
  - name: keys
    import_playbook: keys.yml
    tags:
@@ -27,3 +42,10 @@
    import_playbook: intellij-ultimate.yml
    tags:
     - intellij-ultimate
+
+ - name: sequel pro
+   import_playbook: sequel-pro.yml
+   tags:
+    - sequel-pro
+
+

@@ -1,0 +1,26 @@
+---
+    - local_action: stat path={{ kubectl_install_dest }}
+      register: kubectl_exists
+
+    - name: make directory for kubectl
+      file:
+        path: "{{ kubectl_install_dest }}"
+        state: directory
+      become: yes
+      when: kubectl_exists.stat.exists == False
+
+    - name: download kubectl
+      get_url:
+        url: "https://storage.googleapis.com/kubernetes-release/release/v{{ kubectl_version }}/bin/darwin/amd64/kubectl"
+        dest: "{{ kubectl_install_dest }}/kubectl"
+      become: yes
+      when: kubectl_exists.stat.exists == False
+
+    - name: symlink
+      file:
+        src: "{{ kubectl_install_dest }}/kubectl"
+        dest: "{{ kubectl_link_dest }}"
+        state: link
+        mode: +x
+      become: yes
+      when: kubectl_exists.stat.exists == False

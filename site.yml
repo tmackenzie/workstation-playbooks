@@ -18,10 +18,25 @@
    tags:
     - vault
 
+ - name: kubectl
+   import_playbook: kubectl.yml
+   tags:
+    - kubectl
+
+ - name: minikube
+   import_playbook: minikube.yml
+   tags:
+    - minikube
+
  - name: keys
    import_playbook: keys.yml
    tags:
     - keys
+
+ - name: virual box
+   import_playbook: virtual-box.yml
+   tags:
+    - virtual-box
 
  - name: intellij-ultimate
    import_playbook: intellij-ultimate.yml

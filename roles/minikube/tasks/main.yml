@@ -1,0 +1,26 @@
+---
+    - local_action: stat path={{ mk_install_dest }}
+      register: mk_exists
+
+    - name: make directory for minikube
+      file:
+        path: "{{ mk_install_dest }}"
+        state: directory
+      become: yes
+      when: mk_exists.stat.exists == False
+
+    - name: download minikube
+      get_url:
+        url: "https://storage.googleapis.com/minikube/releases/v{{ mk_version }}/minikube-darwin-amd64"
+        dest: "{{ mk_install_dest }}/minikube"
+      become: yes
+      when: mk_exists.stat.exists == False
+
+    - name: symlink
+      file:
+        src: "{{ mk_install_dest }}/mk"
+        dest: "{{ mk_link_dest }}"
+        state: link
+        mode: +x
+      become: yes
+      when: mk_exists.stat.exists == False

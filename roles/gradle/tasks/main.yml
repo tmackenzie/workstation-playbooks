@@ -7,13 +7,14 @@
      src: https://downloads.gradle.org/distributions/gradle-{{ gradle_version }}-bin.zip
      dest: "{{ gradle_base_install_dest }}"
      remote_src: yes
+   become: yes
    when: gradle_exists.stat.exists == False
 
- - name: gradle env vars in bash profile
-   lineinfile:
-     path: ~/.bash_profile
-     line: '{{ item }}' 
-   with_items:
-     - export PATH={{ gradle_install_dest }}/bin:$PATH 
+ - name: symlink
+   file:
+     src: "{{ gradle_install_dest }}/bin/gradle"
+     dest: "{{ gradle_link_dest }}"
+     state: link
+     mode: +x
+   become: yes
    when: gradle_exists.stat.exists == False
-

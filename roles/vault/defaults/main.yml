@@ -1,3 +1,3 @@
 vault_version: "0.9.0"
-vault_base_install_dest: "/opt/vault"
-vault_install_dest: "{{ vault_base_install_dest}}/vault-{{ vault_version }}"
+vault_install_dest: "/usr/local/vault-{{ vault_version }}"
+terraform_link_dest: "/usr/local/bin/vault"

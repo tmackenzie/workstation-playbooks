@@ -17,10 +17,11 @@
       become: yes
       when: vault_exists.stat.exists == False
 
-    - name: vault env vars in bash profile
-      lineinfile:
-        path: ~/.bash_profile
-        line: '{{ item }}' 
-      with_items:
-        - export PATH={{ vault_install_dest }}:$PATH 
+    - name: symlink
+      file:
+        src: "{{ vault_install_dest }}/terraform"
+        dest: "{{ vault_link_dest }}"
+        state: link
+        mode: +x
+      become: yes
       when: vault_exists.stat.exists == False

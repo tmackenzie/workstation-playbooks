@@ -23,6 +23,11 @@
    tags:
     - kubectl
 
+ - name: gcloud
+   import_playbook: gcloud.yml
+   tags:
+    - gcloud
+
  - name: minikube
    import_playbook: minikube.yml
    tags:

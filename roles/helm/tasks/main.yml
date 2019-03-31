@@ -1,0 +1,31 @@
+---
+    - local_action: stat path={{ helm_install_dest }}
+      register: helm_exists
+
+    - name: make directory for helm
+      file:
+        path: "{{ helm_install_dest }}"
+        state: directory
+      become: yes
+      when: helm_exists.stat.exists == False
+
+    - name: download helm
+      get_url:
+        url: "https://storage.googleapis.com/kubernetes-helm/helm-v{{ helm_version }}-darwin-amd64.tar.gz"
+        dest: "/tmp/helm-v{{ helm_version }}-darwin-amd64.tar.gz"
+      become: yes
+      when: helm_exists.stat.exists == False
+
+    - name: untar helm
+      shell: chdir=/tmp tar -zxf helm-v{{ helm_version }}-darwin-amd64.tar.gz -C {{ helm_install_dest }}
+      become: yes
+      when: helm_exists.stat.exists == False
+
+    - name: symlink
+      file:
+        src: "{{ helm_install_dest }}/darwin-amd64/helm"
+        dest: "{{ helm_link_dest }}"
+        state: link
+        mode: +x
+      become: yes
+      when: helm_exists.stat.exists == False

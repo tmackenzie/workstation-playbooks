@@ -1,0 +1,31 @@
+---
+    - local_action: stat path={{ gcloud_install_dest }}
+      register: gcloud_exists
+
+    - name: make directory for gcloud
+      file:
+        path: "{{ gcloud_install_dest }}"
+        state: directory
+      become: yes
+      when: gcloud_exists.stat.exists == False
+
+    - name: download gcloud
+      get_url:
+        url: "https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-{{ gcloud_version }}-darwin-x86_64.tar.gz"
+        dest: "/tmp/google-cloud-sdk-{{ gcloud_version }}-darwin-x86_64.tar.gz"
+      become: yes
+      when: gcloud_exists.stat.exists == False
+
+    - name: untar gcloud
+      shell: chdir=/tmp tar -zxf google-cloud-sdk-{{ gcloud_version }}-darwin-x86_64.tar.gz -C {{ gcloud_install_dest }}
+      become: yes
+      when: gcloud_exists.stat.exists == False
+
+    - name: symlink
+      file:
+        src: "{{ gcloud_install_dest }}/google-cloud-sdk/bin/gcloud"
+        dest: "{{ gcloud_link_dest }}"
+        state: link
+        mode: +x
+      become: yes
+      when: gcloud_exists.stat.exists == False

@@ -1,0 +1,3 @@
+gcloud_version: "240.0.0"
+gcloud_install_dest: "/usr/local/gcloud-{{ gcloud_version }}"
+gcloud_link_dest: "/usr/local/bin/gcloud"
